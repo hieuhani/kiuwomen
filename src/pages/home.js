@@ -8,6 +8,7 @@ import Point from '../components/Point'
 import Hearth from '../components/Hearth'
 import wishes from '../data/wishes'
 import QuoteCard from '../components/QuoteCard'
+import GiftCart from '../components/GiftCart'
 
 const Wrapper = styled.div.attrs(({ mouseX, mouseY }) => ({
   style: {
@@ -66,6 +67,7 @@ Object.keys(wishes).forEach((name) => {
 
 export default function Home() {
   const [name, setName] = useState(null)
+  const [showCart, setShowCart] = useState(false)
   return (
     <MouseTracker render={(mouse) => (
       <Fragment>
@@ -90,7 +92,11 @@ export default function Home() {
             wish={wishes[name]}
             onClose={() => setName(null)}
           />
-          <GiftWrapper>
+          <GiftCart
+            visible={showCart}
+            onClose={() => setShowCart(false)}
+          />
+          <GiftWrapper onClick={() => setShowCart(true)}>
             <img src={giftbox} alt="" />
           </GiftWrapper>
         </Wrapper>
