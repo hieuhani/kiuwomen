@@ -30,11 +30,12 @@ img {
 }
 `
 
-const ButtonSignIn = styled.button`
+const ButtonSignIn = styled.div`
 border-bottom-left-radius: 4px;
 border-bottom-right-radius: 4px;
 border: 0;
-padding: 1rem 0;
+padding: 1rem 15px;
+text-align: center;
 `
 
 export default ({ visible, onClose }) => {
@@ -45,7 +46,6 @@ export default ({ visible, onClose }) => {
     <FirebaseAuthProvider firebase={firebase} {...config}>
       <Container className="modal">
         <div className="modal-backdrop" onClick={onClose} />
-        
         <FirebaseAuthConsumer>
             {({ isSignedIn, user }) => {
               if (!isSignedIn) {
@@ -54,12 +54,12 @@ export default ({ visible, onClose }) => {
                     <Content className="modal-content">
                       <img src={background} alt="background" />
                       <ButtonSignIn
-                        onClick={() => {
-                          const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-                          firebase.auth().signInWithPopup(googleAuthProvider);
-                        }}
+                        // onClick={() => {
+                        //   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+                        //   firebase.auth().signInWithPopup(googleAuthProvider);
+                        // }}
                       >
-                        Đăng nhập với tài khoản Kiu
+                        Nhân ngày Phụ nữ Việt Nam, chúc toàn thể chị em Kiu Việt Nam luôn vui vẻ và ngập tràn hạnh phúc!
                       </ButtonSignIn>
                     </Content>
                   </div>

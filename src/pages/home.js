@@ -9,6 +9,7 @@ import Hearth from '../components/Hearth'
 import wishes from '../data/wishes'
 import QuoteCard from '../components/QuoteCard'
 import GiftCart from '../components/GiftCart'
+import { useLayout } from '../contexts/LayoutContext'
 
 const Wrapper = styled.div.attrs(({ mouseX, mouseY }) => ({
   style: {
@@ -55,31 +56,33 @@ const GiftWrapper = styled.button`
   }
 `
 
-const pointPositions = {};
-Object.keys(wishes).forEach((name) => {
-  pointPositions[name] = {
-    baseX: _.random(20, 1840),
-    baseY: _.random(20, 860),
-    clockwise: Boolean(_.random(0, 1)),
-    size: _.random(12, 18),
-  };
-})
-
 export default function Home() {
   const [name, setName] = useState(null)
   const [showCart, setShowCart] = useState(false)
+  const layout = useLayout()
+  const { width, height } = layout.dimensions
+
+  const posisions = {};
+  Object.keys(wishes).forEach((name) => {
+    posisions[name] = {
+      baseX: _.random(20, width),
+      baseY: _.random(20, height),
+      clockwise: Boolean(_.random(0, 1)),
+      size: _.random(12, 18),
+    }
+  })
   return (
     <MouseTracker render={(mouse) => (
       <Fragment>
         <Wrapper mouseX={mouse.x} mouseY={mouse.y}>
           <Background>
-            {Object.keys(pointPositions).map((key) => (
+            {Object.keys(posisions).map((key) => (
               <Point
                 key={key}
-                baseX={pointPositions[key].baseX}
-                baseY={pointPositions[key].baseY}
-                clockwise={pointPositions[key].clockwise}
-                size={pointPositions[key].size}
+                baseX={posisions[key].baseX}
+                baseY={posisions[key].baseY}
+                clockwise={posisions[key].clockwise}
+                size={posisions[key].size}
                 onClick={() => setName(key)}
               />
             ))}
